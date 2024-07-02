@@ -1,16 +1,20 @@
 # **********************************************************
 #      2024 : Arthur JEULIN
-#      Copyright (c) Arthur Jeulin
-#      Created by Arthur JEULIN on 06/22/2024.
+#      Copyright (c) Coast Autonomous 
+#      Created by Arthur JEULIN on 03/30/2024.
 # **********************************************************
+
 cmake_minimum_required(VERSION 3.27.5)
 
+set(POSITION_INDEPENDENT_CODE ON)
+
 enable_testing()
+find_package(GTest CONFIG REQUIRED)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/test)
 # Include GoogleTest and enable testing
 
-include(GoogleTest)
+# include(GoogleTest)
 # Find all test cpp files in the tests directory
 file(GLOB TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/units/*.cpp")
 
@@ -32,9 +36,11 @@ foreach(test_source ${TEST_SOURCES})
     )
 
     # Discover tests
-    gtest_discover_tests(${test_name})
-endforeach()
+    # gtest_discover_tests(${test_name})
+    add_test(AllTestsInMain ${test_name})
+    endforeach()
 
 if(BUILD_TESTING)
   Message("BUILD_TESTING ON")
 endif()
+
