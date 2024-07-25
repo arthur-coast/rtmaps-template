@@ -1,8 +1,8 @@
 #! /bin/bash
 # **********************************************************
 #      2024 : Arthur JEULIN
-#      Copyright (c) Arthur JEULIN 
-#      Created by Arthur JEULIN on 06/22/2024.
+#      Copyright (c) Coast Autonomous 
+#      Created by Arthur JEULIN on 03/30/2024.
 # **********************************************************
 #
 # Module : Run the unit tests 
@@ -11,9 +11,12 @@
 # to run this script on windows
 # open wsl terminal and go to cd /mnt/c/dev/rtmaps/inventory
 # ./run_test.sh
+#
+# CAUTION: THE FILE HAS TO BE LF AND NOTE CRLF
+#
 
 # Chemin vers le dossier de tests
-TEST_DIR="./build/bin/test/Debug"
+TEST_DIR="../build/bin/test/Release"
 
 # Dossier pour stocker les rapports de test
 REPORT_DIR="./test_reports"
