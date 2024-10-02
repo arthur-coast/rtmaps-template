@@ -9,6 +9,17 @@
 #
 
 
+# Obtient le chemin absolu du script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+VCPKG_DIR="$SCRIPT_DIR/vcpkg"
+TOOLCHAIN_FILE="$VCPKG_DIR/scripts/buildsystems/vcpkg.cmake"
+
+# Vérifier si le fichier toolchain existe
+if [ ! -f "$TOOLCHAIN_FILE" ]; then
+    echo "Toolchain file not found, running vcpkg install script..."
+    sh "$SCRIPT_DIR/install_vcpkg.sh"
+fi
+
 if [ -d "build" ]; then
     # Le dossier build existe, le vider
     rm -rf build/*
