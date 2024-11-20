@@ -1,3 +1,7 @@
+[submodule "coast-tools"]
+	path = coast-tools
+	url = https://github.com/coast-autonomous/coast-tools.git
+	branch = main
 [submodule "vcpkg"]
 	path = vcpkg
 	url = https://github.com/microsoft/vcpkg.git

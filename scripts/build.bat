@@ -10,23 +10,21 @@ setlocal
 ::
 :: Définir les chemins
 
-:: Get the current directory of the batch file, which is assumed to be the project root
-set "PROJECT_DIR=%~dp0"
+
+:: Définir le répertoire du script (scripts/)
+set "SCRIPT_DIR=%~dp0"
+
+:: Définir le répertoire racine du projet (parent du dossier scripts)
+set "PROJECT_DIR=%SCRIPT_DIR%\.."
 
 :: Remove the trailing backslash
 set "SOURCE_DIR=%PROJECT_DIR:~0,-1%"
 
 :: Specify the build directory
 set "BUILD_DIR=%SOURCE_DIR%\build"
+
+
 set "VCPKG_DIR=%SOURCE_DIR%\vcpkg"
-set "TOOLCHAIN_FILE=%VCPKG_DIR%\scripts\buildsystems\vcpkg.cmake"
-
-:: Vérifier si le fichier toolchain existe
-if not exist "%TOOLCHAIN_FILE%" (
-    echo Toolchain file not found, running vcpkg install script...
-    call "%PROJECT_DIR%install_vcpkg.bat"
-)
-
 
 :: Créer le répertoire de build si nécessaire
 if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%"

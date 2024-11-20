@@ -13,8 +13,14 @@ SETLOCAL
 :: open powershell and run:
 :: ./install_vcpkg.bat
 ::
-:: Définition du répertoire d'installation de vcpkg
-set VCPKG_DIR=%~dp0vcpkg
+
+:: Définir le répertoire du script (scripts/)
+set "SCRIPT_DIR=%~dp0"
+
+:: Définir le répertoire racine du projet (parent du dossier scripts)
+set "PROJECT_DIR=%SCRIPT_DIR%\.."
+
+set "VCPKG_DIR=%PROJECT_DIR%\vcpkg"
 
 :: Clonage de vcpkg
 echo Clonage de vcpkg...
