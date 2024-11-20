@@ -115,7 +115,9 @@ if (MSVC)
       
 else()
   # LINUX 
-    target_link_libraries(${PCK})
+    target_link_libraries(${PCK}
+    rtmaps_input_reader
+    )
     target_compile_options(${PCK} PRIVATE
     -Wall -Wextra -Wpedantic -finline-functions -fexceptions 
     -O3 -fdiagnostics-show-option -pedantic)
