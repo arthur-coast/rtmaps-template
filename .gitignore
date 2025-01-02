@@ -1,29 +1,33 @@
 # Prerequisites
 *.d
 build/
-vcpkg/
-/vcpkg/
-/coast-tools/
 coast-tools/
+jetson-utils/
+vcpkg/
+*.zip
+*.cfg
+*.lic
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
-*.zip
 build/
 log/
 # Precompiled Headers
 # Dossiers
 /build/
+/coast-tools/
+/jetson-utils/
+/vcpkg/
+/build/
 /bin/
-# /lib/
+/lib/
 /out/
-
-
+# vcpkg.json
 # Fichiers
 *.exe
-# *.dll
+*.dll
 *.so
 *.dylib
 *.gch
@@ -32,7 +36,7 @@ log/
 # Compiled Dynamic libraries
 *.so
 *.dylib
-# *.dll
+*.dll
 
 # Fortran module files
 *.mod
@@ -42,7 +46,7 @@ log/
 *.lai
 *.la
 *.a
-# *.lib
+*.lib
 
 # Executables
 *.exe

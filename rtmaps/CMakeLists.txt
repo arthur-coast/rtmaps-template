@@ -9,6 +9,14 @@ cmake_minimum_required(VERSION 3.27.5)
 # RTMaps Package Name
 set(PCK pck)
 
+# Set output directory
+if(UNIX)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /ssd/rtmaps/user_sdk/packages/$<CONFIG>/${PCK})
+endif()
+if(WIN32)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY C:/dev/rtmaps/user_sdk/packages/$<CONFIG>/${PCK})
+endif()
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY C:/dev/rtmaps/user_sdk/packages/${PCK})
 
 set(CMAKE_CXX_STANDARD 20)
@@ -134,5 +142,11 @@ if(WIN32)
         "C:/dev/rtmaps/user_sdk/packages/${PCK}/Release/bin"
          # Destination (pas besoin d'ajouter bin dans le chemin on copie le dossier bin)
          DESTINATION ${RTMAPS_SDKDIR}/user_sdk/packages/${PCK}
+  )
+endif()
+if(UNIX)
+  install(TARGETS ${PCK}
+          CONFIGURATIONS Release
+          RUNTIME DESTINATION ${RTMAPS_SDKDIR}/user_sdk/packages/${PCK}
   )
 endif()

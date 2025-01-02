@@ -15,37 +15,54 @@
           "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
       },
       {
-        "name": "default",
-        "displayName": "Construction par défaut",
-        "description": "préréglage pour une construction par défaut avec Unix Makefiles",
-        "binaryDir": "${sourceDir}/build",
+        "name": "config-debug",
+        "displayName": "Debug (config)",
+        "description": "Configure with Debug flags for Jetson AGX Orin",
         "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build/debug",
         "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
-        "BUILD_SHARED_LIBS": "OFF",
-        "CMAKE_CXX_STANDARD": "20",
-        "CMAKE_BUILD_TYPE" : "Release"
-      }
-    },
-    {
-      "name": "x64-windows",
-      "displayName": "Windows x64",
-      "description": "Configure with Visual Studio 16 2019 on Windows",
-      "generator": "Visual Studio 16 2019",
-      "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
-      "binaryDir": "${sourceDir}/build",
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Debug",
+          "CMAKE_CXX_COMPILER": "/usr/bin/g++-11",
+          "CMAKE_C_COMPILER": "/usr/bin/gcc-11",
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
+          "CMAKE_MAKE_PROGRAM": "/usr/bin/make",
+          "CMAKE_CXX_STANDARD": "20"
+        }
       },
-      "cacheVariables": {
-          "BUILD_SHARED_LIBS": "OFF",
-          "CMAKE_EXPORT_COMPILE_COMMANDS": "TRUE",
-          "CMAKE_SYSTEM_VERSION": "11.0",
-          "VCPKG_PLATFORM_TOOLSET": "v142"
+      {
+        "name": "config-release",
+        "displayName": "Release (config)",
+        "description": "Configure with Release flags for Jetson AGX Orin",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build/release",
+        "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Release",
+          "CMAKE_CXX_COMPILER": "/usr/bin/g++-11",
+          "CMAKE_C_COMPILER": "/usr/bin/gcc-11",
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
+          "CMAKE_CXX_STANDARD": "20",
+          "CMAKE_MAKE_PROGRAM": "/usr/bin/make",
+          "CMAKE_CUDA_COMPILER": "/usr/local/cuda-11.4/bin/nvcc"
+        }
+      },
+      {
+        "name": "x64-windows",
+        "displayName": "Windows x64",
+        "description": "Configure with Visual Studio 16 2019 on Windows",
+        "generator": "Visual Studio 16 2019",
+        "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "binaryDir": "${sourceDir}/build",
+        "architecture": {
+          "value": "x64",
+          "strategy": "external"
+        },
+        "cacheVariables": {
+            "BUILD_SHARED_LIBS": "OFF",
+            "CMAKE_EXPORT_COMPILE_COMMANDS": "TRUE",
+            "CMAKE_SYSTEM_VERSION": "11.0",
+            "VCPKG_PLATFORM_TOOLSET": "v142"
         }
       }
   ],
@@ -65,12 +82,22 @@
           "configuration": "Release"
         },
         {
-          "name": "build-default",
-          "configurePreset": "default",
+          "name": "build-release",
+          "configurePreset": "config-release",
           "displayName": "Build (Release)",
           "description": "Build with Unix",
-          "configuration": "Release"
+          "configuration": "Release",
+          "jobs": 0
       },
+
+      {
+        "name": "build-debug",
+        "configurePreset": "config-debug",
+        "displayName": "Build (Debug)",
+        "description": "Build with Unix",
+        "configuration": "Debug",
+        "jobs": 0
+    },
       {
         "name": "build-windows",
         "configurePreset": "x64-windows",
@@ -93,53 +120,5 @@
           "ALL_BUILD"
         ]
       }
-  ],
-  "testPresets": [
-      {
-          "name": "test-ninja-vcpkg",
-          "configurePreset": "ninja-multi-vcpkg",
-          "hidden": true
-      },
-      {
-          "name": "test-debug",
-          "description": "Test (Debug)",
-          "displayName": "Test (Debug)",
-          "configuration": "Debug",
-          "inherits": [
-            "test-ninja-vcpkg"
-          ]
-        },
-        {
-          "name": "test-release",
-          "description": "Test (Release)",
-          "displayName": "Test (Release)",
-          "configuration": "Release",
-          "inherits": [
-            "test-ninja-vcpkg"
-          ]
-        },
-        {
-          "name": "run-all-tests",
-        "description": "Test (Debug)",
-        "displayName": "Test (Debug)",
-        "configuration": "Debug",
-        "configurePreset": "default",
-        "output": {
-          "outputOnFailure": true
-        }
-      },
-      {
-        "name": "test-windows",
-        "description": "Test Windows",
-        "displayName": "Test Windows",
-        "configurePreset": "x64-windows",
-        "output": {
-          "outputOnFailure": true
-        }
-      },
-      {
-        "name": "test-default",
-        "configurePreset": "default"
-      }
-    ]
+  ]
   }
